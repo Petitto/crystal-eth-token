@@ -18,6 +18,9 @@ function App() {
           Learn React
         </a>
       </header>
+      <body>
+        <p>Crystal Eth Token</p>
+      </body>
     </div>
   );
 }
