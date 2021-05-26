@@ -1,28 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import React from "react";
+import Moralis from 'moralis';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <body>
-        <p>Crystal Eth Token</p>
-      </body>
-    </div>
-  );
+Moralis.initialize("DQ8U9WF2H28hQrmXxLPo7hs4OGnJGZgcrvlgdjFk");
+Moralis.serverURL = 'https://zd6oyblshpkc.Moralis.io:2053/server'
+
+const initialUser = Moralis.User.current();
+
+class App extends React.Component {
+
+  constructor(props) {
+   super(props);
+   this.state = {user: initialUser};
+   this.onLogin = this.onLogin.bind(this);
+   this.onLogout = this.onLogout.bind(this);
+  }
+
+  async onLogin() {
+    var authUser = await Moralis.authenticate();
+    this.setState({user: authUser});
+  }
+
+  onLogout() {
+    Moralis.User.logOut();
+    this.setState({user: null});
+  }
+
+  render () {
+    if (this.state.user) {
+      return <button onClick={this.onLogout}>Logout</button>;
+    }
+    
+    return <button onClick={this.onLogin}>Login</button>;
+  }
+
 }
 
 export default App;
