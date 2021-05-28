@@ -1,13 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './assets/css/index.css';
 import App from './App';
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 
+import ThemeContextWrapper from "./components/ThemeWrapper/ThemeWrapper";
+import BackgroundColorWrapper from "./components/BackgroundColorWrapper/BackgroundColorWrapper";
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ThemeContextWrapper>
+    <BackgroundColorWrapper>
+      <BrowserRouter>
+        <Switch>
+          <Route>
+            <App />
+          </Route>
+          <Redirect from="/" to="/crystales" />
+        </Switch>
+      </BrowserRouter>
+    </BackgroundColorWrapper>
+  </ThemeContextWrapper>,
   document.getElementById('root')
 );
 
